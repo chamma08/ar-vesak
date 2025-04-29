@@ -16,7 +16,7 @@ const ModelLoader = () => {
   );
 };
 
-const ModelFallback = ({ position = [0, 0, 0] }) => {
+const ModelFallback = ({ position = [0, 0, 0], rotation }) => {
   const modelRef = useRef();
   const [hovered, setHovered] = useState(false);
   const [scale, setScale] = useState([1, 1, 1]);
@@ -32,18 +32,25 @@ const ModelFallback = ({ position = [0, 0, 0] }) => {
     }
   }, [hovered]);
 
+  // Create a cloned scene to avoid sharing issues
+  const model = gltf.scene.clone();
+
   return (
     <Suspense fallback={<ModelLoader />}>
-      <primitive 
+      <group 
         ref={modelRef}
         position={position} 
-        object={gltf.scene} 
+        rotation={rotation}
         scale={scale}
         onPointerOver={() => setHovered(true)}
         onPointerOut={() => setHovered(false)}
-        castShadow
-        receiveShadow
-      />
+      >
+        <primitive 
+          object={model}
+          castShadow
+          receiveShadow
+        />
+      </group>
       
       {/* Basic lighting without Environment component */}
       <ambientLight intensity={0.5} />
