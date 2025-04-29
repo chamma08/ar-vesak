@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import Home from './pages/Home';
-import AppContainer from './components/xr-gallery/AppContainer';
+import XrHitModelContainer from './components/new/XrHitModelContainer';
 
 function App() {
 
@@ -12,7 +12,7 @@ function App() {
       <ToastContainer />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/xr-gallery" element={<AppContainer />} />
+        <Route path="/xr-gallery" element={<XrHitModelContainer />} />
       </Routes>
     </main>
   )
